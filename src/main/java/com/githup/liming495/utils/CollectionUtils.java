@@ -10,13 +10,12 @@ import java.util.List;
  * @author Guppy
  */
 public abstract class CollectionUtils {
+
     /**
      * 删除重复的
-     *
-     * @param items
-     *            数据集合
-     * @param equation
-     *            对比器
+     * @param items 数据集合
+     * @param equation 对比器
+     * @param <T> 类型
      */
     public static <T> void removeDuplicate(List<T> items, Equation<T> equation) {
         for (int i = 0; i < items.size() - 1; i++) {
@@ -30,12 +29,9 @@ public abstract class CollectionUtils {
 
     /**
      * 根据合并器返回的结果进行项的清除
-     *
-     * @param source
-     *            原数据
-     * @param merger
-     *            合并器
-     *
+     * @param source 原数据
+     * @param merger 合并器
+     * @param <T> 类型
      */
     public static <T> void merge(List<T> source, Merger<T> merger) {
         if (source == null || merger == null) {
@@ -55,12 +51,9 @@ public abstract class CollectionUtils {
 
     /**
      * 去除不要的项
-     *
-     * @param source
-     *            原数据
-     * @param removes
-     *            要剔除的对象，对比对象是调用 对象的equals方法，务必实现此方法
-     *
+     * @param source 原数据
+     * @param removes 要剔除的对象，对比对象是调用 对象的equals方法，务必实现此方法
+     * @param <T> 类型
      */
     @SuppressWarnings("unchecked")
     public static <T> void removeItem(List<T> source, T... removes) {
@@ -81,10 +74,9 @@ public abstract class CollectionUtils {
 
     /**
      * 将list转换为按逗号分割的字符串
-     *
-     * @param list
-     *            原数组
-     * @return String 字符串
+     * @param list 原数组
+     * @param <T> 类型
+     * @return 字符串
      */
     public static <T> String listToString(List<T> list) {
         if (list == null) {
@@ -103,8 +95,8 @@ public abstract class CollectionUtils {
     /**
      * 将list转换数值
      *
-     * @param list
-     * @return
+     * @param list 数组
+     * @return 数值
      */
     public static Long[] listToLongs(List<Long> list) {
         if (ObjectUtils.isEmpty(list)) {
@@ -120,12 +112,10 @@ public abstract class CollectionUtils {
 
     /**
      * 将按逗号分割的字符串转换为list
-     *
-     * @param string
-     *            原字符串
-     * @param tClass
-     *            转换成目录的类
-     * @return
+     * @param string 原字符串
+     * @param tClass 转换成目录的类
+     * @param <T> 类型
+     * @return 数组
      */
     @SuppressWarnings("unchecked")
     public static <T extends Number> List<T> stringToNumberList(String string, Class<T> tClass) {
@@ -163,11 +153,9 @@ public abstract class CollectionUtils {
 
     /**
      * 数组转List
-     *
-     * @param ts
-     *            原数组
-     *
-     * @return ArrayList
+     * @param ts 原数组
+     * @param <T> 类型
+     * @return 新数组
      */
     public static <T> List<T> arrayToList(T[] ts) {
         if (ts == null) {
@@ -183,8 +171,8 @@ public abstract class CollectionUtils {
     /**
      * 数组变字符串
      *
-     * @param os
-     * @return
+     * @param os 数组
+     * @return 字符串
      */
     public static String Array2String(Object[] os) {
         if (os == null) {
@@ -207,7 +195,7 @@ public abstract class CollectionUtils {
      *            源数组
      * @param o
      *            可能会包含的对象
-     * @return
+     * @return result
      */
     public static boolean arrayIsContains(Object[] os, Object o) {
         if (ObjectUtils.allEmpty(os, o)) {

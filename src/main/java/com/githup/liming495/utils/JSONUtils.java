@@ -65,12 +65,12 @@ public abstract class JSONUtils {
     /**
      * JSON字符串转Java LIST对象
      *
-     * @param json
+     * @param json 字符串
      * @param listClass
      *            List类
      * @param elementClass
      *            泛型的类
-     * @return
+     * @return 对象
      */
     public static Object Json2List(String json, Class<?> listClass, Class<?> elementClass) {
 
@@ -89,9 +89,9 @@ public abstract class JSONUtils {
     /**
      * 对泛型进行支持
      *
-     * @param collectionClass
-     * @param elementClasses
-     * @return
+     * @param collectionClass 集合类型
+     * @param elementClasses  元素类型
+     * @return 类型
      */
     public static JavaType getCollectionType(Class<?> collectionClass, Class<?>... elementClasses) {
         return MAPPER.getTypeFactory().constructParametricType(collectionClass, elementClasses);

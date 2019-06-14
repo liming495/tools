@@ -31,7 +31,7 @@ public abstract class DateUtils {
      *            日期对象
      * @param dateFormat
      *            格式化对象
-     * @return
+     * @return 日期对象转字符串
      */
     public static String dateToString(Date date, SimpleDateFormat dateFormat) {
         if (date == null) {
@@ -47,7 +47,7 @@ public abstract class DateUtils {
      *            日期对象
      * @param pattern
      *            格式化
-     * @return
+     * @return 日期对象转字符串
      */
     public static String dateToString(Date date, String pattern) {
         return dateToString(date, getSimpleDateFormat(pattern));
@@ -89,8 +89,8 @@ public abstract class DateUtils {
     /**
      * 根据格式获取格式化对象
      *
-     * @param pattern
-     * @return
+     * @param pattern 格式
+     * @return 格式化对象
      */
     private static SimpleDateFormat getSimpleDateFormat(String pattern) {
         if (pattern == null) {
@@ -109,7 +109,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            时间值
-     * @return
+     * @return 日期转字符串
      */
     public static String dateToString_only_date(Date date) {
         return dateToString(date, PATTERN_ONLY_DATE);
@@ -118,7 +118,7 @@ public abstract class DateUtils {
     /**
      * 当前日期转字符串，格式：yyyy-MM-dd
      *
-     * @return
+     * @return 当前日期转字符串
      */
     public static String nowToString_only_date() {
         return dateToString_only_date(new Date());
@@ -142,7 +142,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            时间值
-     * @return
+     * @return 日期转字符串
      */
     public static String dateToString_only_time(Date date) {
         return dateToString(date, PATTERN_ONLY_TIME);
@@ -151,7 +151,7 @@ public abstract class DateUtils {
     /**
      * 当前日期转字符串，格式：HH:mm:ss
      *
-     * @return
+     * @return 当前日期转字符串
      */
     public static String nowToString_only_time() {
         return dateToString_only_time(new Date());
@@ -175,7 +175,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            时间值
-     * @return
+     * @return 日期转字符串
      */
     public static String dateToString(Date date) {
         return dateToString(date, PATTERN_DATETIME);
@@ -184,7 +184,7 @@ public abstract class DateUtils {
     /**
      * 当前日期转字符串，格式：yyyy-MM-dd HH:mm:ss
      *
-     * @return
+     * @return 当前日期转字符串
      */
     public static String nowToString() {
         return dateToString(new Date());
@@ -208,7 +208,7 @@ public abstract class DateUtils {
      *
      * @param manyYears
      *            多少年,传正数
-     * @return
+     * @return 多少年以前
      */
     public static Date beforeManyYears(Integer manyYears) {
         return beforeManyYears(null, manyYears);
@@ -219,7 +219,7 @@ public abstract class DateUtils {
      *
      * @param manyDays
      *            多少天,传正数
-     * @return
+     * @return 多少天以前
      */
     public static Date beforeManyDays(Integer manyDays) {
         return beforeManyDays(null, manyDays);
@@ -232,7 +232,7 @@ public abstract class DateUtils {
      *            日期对象，不传默认是当前
      * @param manyYears
      *            多少年,传正数
-     * @return
+     * @return 多少年以前
      */
     public static Date beforeManyYears(Date date, Integer manyYears) {
         if (manyYears > 0) {
@@ -253,7 +253,7 @@ public abstract class DateUtils {
      *            日期对象，不传默认是当前
      * @param manyDays
      *            多少天,传正数
-     * @return
+     * @return 多少天以前
      */
     public static Date beforeManyDays(Date date, Integer manyDays) {
         if (manyDays > 0) {
@@ -272,7 +272,7 @@ public abstract class DateUtils {
      *
      * @param manyYears
      *            多少年,传正数
-     * @return
+     * @return 多少年以后
      */
     public static Date afterManyYears(Integer manyYears) {
         return afterManyYears(null, manyYears);
@@ -283,7 +283,7 @@ public abstract class DateUtils {
      *
      * @param manyDays
      *            多少天,传正数
-     * @return
+     * @return 多少天以后
      */
     public static Date afterManyDays(Integer manyDays) {
         return afterManyDays(null, manyDays);
@@ -296,7 +296,7 @@ public abstract class DateUtils {
      *            日期对象，不传默认是当前
      * @param manyYears
      *            多少年,传正数
-     * @return
+     * @return 多少年以后
      */
     public static Date afterManyYears(Date date, Integer manyYears) {
         if (manyYears < 0) {
@@ -317,7 +317,7 @@ public abstract class DateUtils {
      *            日期对象，不传默认是当前
      * @param manyDays
      *            多少天,传正数
-     * @return
+     * @return 多少天以后
      */
     public static Date afterManyDays(Date date, Integer manyDays) {
         if (manyDays < 0) {
@@ -334,7 +334,7 @@ public abstract class DateUtils {
     /**
      * 当天开始的时间
      *
-     * @return
+     * @return 当天开始的时间
      */
     public static Date todayBegin() {
         return dayBegin(new Date());
@@ -343,8 +343,8 @@ public abstract class DateUtils {
     /**
      * 获得某个日期对象的开始时间
      *
-     * @param date
-     * @return
+     * @param date 某个日期对象
+     * @return 某个日期对象的开始时间
      */
     public static Date dayBegin(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -358,7 +358,7 @@ public abstract class DateUtils {
     /**
      * 当天结束的时间
      *
-     * @return
+     * @return 当天结束的时间
      */
     public static Date todayEnd() {
         return dayEnd(new Date());
@@ -367,8 +367,8 @@ public abstract class DateUtils {
     /**
      * 获得某个日期对象的结束时间
      *
-     * @param date
-     * @return
+     * @param date 某个日期对象
+     * @return 某个日期对象的结束时间
      */
     public static Date dayEnd(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -382,9 +382,9 @@ public abstract class DateUtils {
     /**
      * 日期偏移，返回格式:yyyyMMdd
      *
-     * @param date
-     * @param offset
-     * @return
+     * @param date 日期
+     * @param offset 偏移
+     * @return 日期偏移
      */
     public static Date getDateByDayOffset(Date date, int offset) {
         Calendar calendar = Calendar.getInstance();
@@ -415,8 +415,8 @@ public abstract class DateUtils {
 
     /**
      * 获取2014年1月1日到现在的秒数
-     *
-     * @return Long
+     * @param date 时间
+     * @return 2014年1月1日到现在的秒数
      */
     public static Long getMyUnixSec(Date date) {
         return date.getTime() - base;
@@ -425,9 +425,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间前几天的时间
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 当前时间
+     * @param timing 前几天的时间
+     * @return 当前时间前几天的时间
      */
     public static Date getBeforeTimeOfDay(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -439,9 +439,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间前几天的时间-具体到秒
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 当前时间
+     * @param timing 前几天的时间
+     * @return 当前时间前几天的时间
      */
     public static Date getBeforeDateOfTime(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -456,8 +456,8 @@ public abstract class DateUtils {
     /**
      * 毫秒转具体秒数
      *
-     * @param time
-     * @return
+     * @param time 毫秒
+     * @return 毫秒转具体秒数
      */
     public static long getdiffTimeSec(long time) {
         return time / ns;
@@ -485,8 +485,8 @@ public abstract class DateUtils {
     /**
      * 某日期的开始
      *
-     * @param date
-     * @return
+     * @param date 某日期
+     * @return 某日期的开始
      */
     public static Date dayTimeBegin(String date) {
         Date r = null;
@@ -501,8 +501,8 @@ public abstract class DateUtils {
     /**
      * 某日期的结束
      *
-     * @param date
-     * @return
+     * @param date 日期
+     * @return 日期的结束
      */
     public static Date dayTimeEnd(String date) {
         Date r = null;
@@ -517,9 +517,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间后几小时的时间
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 前时间
+     * @param timing 后几小时的时间
+     * @return 前时间后几小时的时间
      */
     public static Date getAfterTimeOfHours(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -531,8 +531,8 @@ public abstract class DateUtils {
 
     /**
      * 获取日期目录形式的字符串
-     *
-     * @return Date yyyy-MM-dd HH:mm:ss->yyyy-MM-dd
+     * @param date 日期
+     * @return 日期目录形式的字符串
      */
     public static Date dateToDay(Date date) {
         try {
@@ -549,7 +549,7 @@ public abstract class DateUtils {
     /**
      * 获取日期目录形式的字符串
      *
-     * @param date
+     * @param date 日期
      * @return String yyyy-MM-dd
      */
     public static String dateString(Date date) {
@@ -561,7 +561,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            yyyy-MM-dd
-     * @return
+     * @return 标准时间
      */
     public static Date formatDateDay(String date) {
         Date new_date = null;
@@ -580,7 +580,7 @@ public abstract class DateUtils {
      *            较小的时间
      * @param bdate
      *            较大的时间
-     * @return List<Date> 相差天数
+     * @return 相差天数
      */
     public static List<Date> daysBetween(Date smdate, Date bdate) {
         if (bdate == null || smdate == null || bdate.getTime() < smdate.getTime()) {
@@ -624,7 +624,7 @@ public abstract class DateUtils {
     /**
      * 获取日期目录形式的字符串
      *
-     * @param time
+     * @param time 日期
      * @return String HH:mm:ss
      */
     public static String dateToStrTime(Date time) {
@@ -638,7 +638,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            yyyy-MM-dd HH:mm
-     * @return
+     * @return 标准时间
      */
     public static Date formatMinutes(String date) {
         Date new_date = null;
@@ -657,7 +657,7 @@ public abstract class DateUtils {
      *            较小的时间
      * @param bdate
      *            较大的时间
-     * @return List<Date> 相差天数
+     * @return 相差天数
      */
     public static List<Date> daysBetweenNowDate(Date smdate, Date bdate) {
         if (bdate == null || smdate == null || bdate.getTime() < smdate.getTime()) {
@@ -681,10 +681,8 @@ public abstract class DateUtils {
 
     /**
      * 把日期集合转换成字符串集合
-     *
-     * @param dateList
-     *            <Date>
-     * @return List<String> yyyy-MM-dd
+     * @param dateList 时间数组
+     * @return 字符数组
      */
     public static List<String> dateStringList(List<Date> dateList) {
         List<String> list = new ArrayList<String>();
@@ -701,7 +699,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            yyyy-MM
-     * @return
+     * @return 标准时间
      */
     public static Date formatDateMonth(String date) {
         Date new_date = null;
@@ -716,8 +714,8 @@ public abstract class DateUtils {
     /**
      * 返回指定日期的月的第一天
      *
-     * @param date
-     * @return
+     * @param date 指定日期的月
+     * @return 指定日期的月的第一天
      */
     public static Date getFirstDayOfMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -732,8 +730,8 @@ public abstract class DateUtils {
     /**
      * 返回指定日期的月的最后一天
      *
-     * @param date
-     * @return
+     * @param date 指定日期的月
+     * @return 指定日期的月的最后一天
      */
     public static Date getLastDayOfMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -751,7 +749,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            yyyy-MM-dd
-     * @return
+     * @return 标准时间
      */
     public static Date dateToDate(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -765,9 +763,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间后几分钟的时间
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 当前时间
+     * @param timing 后几分钟的时间
+     * @return 当前时间后几分钟的时间
      */
     public static Date getAfterTimeOfMinutes(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -782,7 +780,7 @@ public abstract class DateUtils {
      *
      * @param date
      *            yyyy-MM-dd HH:mm
-     * @return
+     * @return 标准时间
      */
     public static Date dateToDateMinutes(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -794,9 +792,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间前几小时的时间
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 当前时间
+     * @param timing 前几小时
+     * @return 当前时间前几小时的时间
      */
     public static Date getBeforeTimeOfHours(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -809,9 +807,9 @@ public abstract class DateUtils {
     /**
      * 获取当前时间前几天的时间-具体到分钟
      *
-     * @param now
-     * @param timing
-     * @return
+     * @param now 当前时间
+     * @param timing 前几天
+     * @return 当前时间前几天的时间
      */
     public static Date getBeforeTimeOfDate(Date now, int timing) {
         Calendar c = Calendar.getInstance();
@@ -824,7 +822,7 @@ public abstract class DateUtils {
     /**
      * 上一小时开始的时间
      *
-     * @return
+     * @return 上一小时开始的时间
      */
     public static Date preHourBegin() {
         Calendar c = Calendar.getInstance();
@@ -836,7 +834,7 @@ public abstract class DateUtils {
     /**
      * 上一小时结束的时间
      *
-     * @return
+     * @return 上一小时结束的时间
      */
     public static Date preHourEnd() {
         Calendar c = Calendar.getInstance();
@@ -848,7 +846,7 @@ public abstract class DateUtils {
     /**
      * 上一天开始的时间
      *
-     * @return
+     * @return 上一天开始的时间
      */
     public static Date preDayBegin() {
         Calendar c = Calendar.getInstance();
@@ -860,7 +858,7 @@ public abstract class DateUtils {
     /**
      * 上一天结束的时间
      *
-     * @return
+     * @return 上一天结束的时间
      */
     public static Date preDayEnd() {
         Calendar c = Calendar.getInstance();
@@ -882,9 +880,9 @@ public abstract class DateUtils {
     /**
      * 日期偏移，返回格式:yyyyMMdd
      *
-     * @param date
-     * @param offset
-     * @return
+     * @param date 时间
+     * @param offset 偏移
+     * @return 偏移量
      */
     public static String dayOffset(Date date, int offset) {
         Calendar calendar = Calendar.getInstance();
@@ -895,6 +893,8 @@ public abstract class DateUtils {
 
     /**
      * 根据用户生日计算年龄
+     * @param birthday 生日
+     * @return 年龄
      */
     public static int getAgeByBirthday(Date birthday) {
         Calendar cal = Calendar.getInstance();

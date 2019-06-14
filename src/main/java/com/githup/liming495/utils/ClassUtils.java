@@ -5,15 +5,14 @@ import java.util.Date;
 /**
  * 类工具
  *
- * @author by guppy
- * @date 2019/5/27 16:10
+ * @author Guppy
  */
 public abstract class ClassUtils {
     /**
      * 是不是基础类型
      *
-     * @param c
-     * @return
+     * @param c 类型
+     * @return result
      */
     public static boolean isBaseType(Class<?> c) {
         if (c == Boolean.class || c == boolean.class) {

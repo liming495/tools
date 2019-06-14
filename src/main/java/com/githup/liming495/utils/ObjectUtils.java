@@ -16,8 +16,8 @@ public abstract class ObjectUtils {
     /**
      * 检查一个集合是否为空
      *
-     * @param c
-     * @return
+     * @param c 集合
+     * @return 返回值
      */
     public static boolean isEmpty(@SuppressWarnings("rawtypes") Collection c) {
         return c == null || c.size() == 0;
@@ -26,8 +26,8 @@ public abstract class ObjectUtils {
     /**
      * 检查一个字符串是否为空
      *
-     * @param s
-     * @return
+     * @param s 字符串
+     * @return 结果
      */
     public static boolean isEmpty(String s) {
         return s == null || "".equals(s);
@@ -36,8 +36,8 @@ public abstract class ObjectUtils {
     /**
      * 检查一个字符串是否为空
      *
-     * @param s
-     * @return
+     * @param s 一个字符串
+     * @return 是否为空
      */
     public static boolean isNull(String s) {
         return s == null;
@@ -46,8 +46,8 @@ public abstract class ObjectUtils {
     /**
      * 检查一个对象是否为空
      *
-     * @param o
-     * @return
+     * @param o 一个对象
+     * @return 是否为空
      */
     public static boolean isEmpty(Object o) {
         if (o == null) {
@@ -64,8 +64,8 @@ public abstract class ObjectUtils {
     /**
      * 检查一个对象数组是否为空
      *
-     * @param os
-     * @return
+     * @param os 一个对象数组
+     * @return 是否为空
      */
     public static boolean isEmpty(Object[] os) {
         return os == null || os.length == 0;
@@ -74,8 +74,8 @@ public abstract class ObjectUtils {
     /**
      * 检查多个对象当中是否有存在空参数
      *
-     * @param os
-     * @return
+     * @param os 多个对象
+     * @return 是否有存在空参数
      */
     public static boolean hasEmpty(Object... os) {
         if (isEmpty(os)) {
@@ -92,8 +92,8 @@ public abstract class ObjectUtils {
     /**
      * 检查多个对象当中是否全部是空
      *
-     * @param os
-     * @return
+     * @param os 多个对象
+     * @return 是否全部是空
      */
     public static boolean allEmpty(Object... os) {
         if (isEmpty(os)) {
@@ -110,8 +110,8 @@ public abstract class ObjectUtils {
     /**
      * 检查多个对象当中是否全部是空
      *
-     * @param os
-     * @return
+     * @param os 多个对象
+     * @return 是否全部是空
      */
     public static boolean allNull(Object... os) {
         if (isEmpty(os)) {
@@ -128,8 +128,8 @@ public abstract class ObjectUtils {
     /**
      * 检查多个字符串当中是否有存在空参数
      *
-     * @param ss
-     * @return
+     * @param ss 多个字符串
+     * @return 是否有存在空参数
      */
     public static boolean hasEmpty(String... ss) {
         if (isEmpty(ss)) {

@@ -16,8 +16,8 @@ public abstract class EmojiUtils {
     /**
      * 检查是否有EMOJI表情
      *
-     * @param content
-     * @return
+     * @param content 字符串
+     * @return 结果
      */
     public static boolean has(String content) {
         Matcher emojiMatcher = emoji.matcher(content);

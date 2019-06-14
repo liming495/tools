@@ -12,8 +12,7 @@ import java.util.Properties;
 /**
  * 代码工具类，用于生成一些有规则的代码
  *
- * @author by guppy
- * @date 2019/5/27 16:16
+ * @author Guppy
  */
 public abstract class CodeUtils {
     /**
@@ -132,23 +131,21 @@ public abstract class CodeUtils {
 
     /**
      * <p>
-     * 创建GET&PUT，用于生成两个类成员名称类似(不区分大小写)的赋值操作，如果类型不匹配，则会生成ObjectUtils.object2Type,
+     * 创建GET PUT
+     * 用于生成两个类成员名称类似(不区分大小写)的赋值操作
+     * 如果类型不匹配
+     * 则会生成ObjectUtils.object2Type
      * 并最终是存放在MAP里面
+     * map.put("s.fieldname",s.getField())
      * </p>
-     * map.put("s.fieldname",s.getField());
      *
-     * @param sc
-     *            有数据的类
-     * @param dc
-     *            准备放数据的类
-     * @param s
-     *            有数据的对象名称
-     * @param map
-     *            准备放数据的对象名称
-     * @param tolerance
-     *            容许每个成员名称中字符不匹配的数量，0则完全匹配
+     * @param sc 有数据的类
+     * @param dc 准备放数据的类
+     * @param s 有数据的对象名称
+     * @param map 准备放数据的对象名称
+     * @param tolerance 容许每个成员名称中字符不匹配的数量，0则完全匹配
+     * @param nullable 标识
      */
-
     @SuppressWarnings("rawtypes")
     public static void generatGetPut(Class sc, Class dc, String s, String map, int tolerance, boolean nullable) {
         List<String> fails = new ArrayList<String>();
@@ -254,9 +251,10 @@ public abstract class CodeUtils {
 
     /**
      * <p>
-     * 创建GET&SET，用于生成两个类成员名称类似(不区分大小写)的赋值操作，如果类型不匹配，则会生成ObjectUtils.object2Type
-     * </p>
+     * 创建GET SET，用于生成两个类成员名称类似(不区分大小写)的赋值操作，如果类型不匹配，则会生成ObjectUtils.object2Type
      * d.setField(s.getField());
+     * </p>
+     *
      *
      * @param sc
      *            有数据的类

@@ -13,8 +13,7 @@ public abstract class RequestUtils {
 
     /**
      * 设置当前请求对象给本地线程
-     *
-     * @param req
+     * @param req result
      */
     public static void save(HttpServletRequest req) {
         local.set(req);
@@ -36,8 +35,8 @@ public abstract class RequestUtils {
     /**
      * 获取请求参数
      *
-     * @param key
-     * @return
+     * @param key 关键字
+     * @return 请求参数
      */
     public static String getParameter(String key) {
         return getRequest().getParameter(key);
@@ -46,8 +45,8 @@ public abstract class RequestUtils {
     /**
      * 获取请求头参数
      *
-     * @param key
-     * @return
+     * @param key 关键字
+     * @return 请求头参数
      */
     public static String getHead(String key) {
         return getRequest().getHeader(key);
@@ -55,7 +54,7 @@ public abstract class RequestUtils {
 
     /**
      * 获取本地对象
-     * @return
+     * @return 本地对象
      */
     public static Locale getLocale() {
         return getRequest().getLocale();

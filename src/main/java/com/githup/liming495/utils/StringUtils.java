@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 字符串工具类
  *
- * @author by guppy
- * @date 2019/5/27 16:17
+ * @author Guppy
  */
 public abstract class StringUtils {
     private static final String ZERO = "0";
@@ -17,8 +16,8 @@ public abstract class StringUtils {
     /**
      * 获取十六进制的SHA1值
      *
-     * @param data
-     * @return
+     * @param data 值
+     * @return 返回值
      */
     public static String sha1Hex(String data) {
         if (data == null) {
@@ -61,7 +60,7 @@ public abstract class StringUtils {
      *            最大长度
      * @param target
      *            目标字符串
-     * @return
+     * @return 返回值
      */
     public static String addZero2First(int maxLength, String target) {
         if (maxLength == target.length()) {
@@ -81,7 +80,7 @@ public abstract class StringUtils {
      *            最大长度
      * @param target
      *            目标字符串
-     * @return
+     * @return 返回值
      */
     public static String addZero2First(int maxLength, Object target) {
         if (target == null) {
@@ -95,9 +94,9 @@ public abstract class StringUtils {
      * <p>
      * if o == null return default
      *
-     * @param o
-     * @param defaultStr
-     * @return
+     * @param o 字符
+     * @param defaultStr 默认值
+     * @return 返回值
      */
     public static String nvlStr(Object o, String defaultStr) {
         return o == null ? defaultStr : o.toString();
@@ -108,8 +107,8 @@ public abstract class StringUtils {
      * <p>
      * if o == null return ""
      *
-     * @param o
-     * @return
+     * @param o 空字符
+     * @return 转换结果
      */
     public static String nvlStr(Object o) {
         return nvlStr(o, "");
@@ -158,8 +157,8 @@ public abstract class StringUtils {
     /**
      * 检查字符是否为合法的邮件地址
      *
-     * @param mail
-     * @return
+     * @param mail 字符
+     * @return 是否为合法
      */
     public static boolean chkMail(String mail) {
         int i;
@@ -216,6 +215,13 @@ public abstract class StringUtils {
      * that are senstive to HTML interpreters, returning the string with these
      * characters replaced by the corresponding character entities.
      */
+    /**
+     * added by morris 2000/10/20 Filter the specified string for characters
+     * that are senstive to HTML interpreters, returning the string with these
+     * characters replaced by the corresponding character entities.
+     * @param value String
+     * @return result
+     */
     public static String filterForHtml(String value) {
         if (value == null) {
             return null;
@@ -243,6 +249,8 @@ public abstract class StringUtils {
      * Filter the specified string for characters that are senstive to
      * JavaScript interpreters, returning the string with these characters
      * replaced by the corresponding character entities.
+     * @param value String
+     * @return result
      */
     public static String filterForJS(String value) {
         if (value == null) {
@@ -264,15 +272,18 @@ public abstract class StringUtils {
     }
 
     /**
-     * 9999999 -> 9,999,999
+     * 9999999   9,999,999
+     * @param src BigDecimal
+     * @return result
      */
     public static String formatNum(java.math.BigDecimal src) {
         return formatNum(src.toString());
     }
 
-    // End of update
     /**
-     * 9999999 -> 9,999,999
+     * 9999999   9,999,999
+     * @param input0 字符串
+     * @return result
      */
     public static String formatNum(String input0) {
         if (input0 == null) {
@@ -306,8 +317,8 @@ public abstract class StringUtils {
     /**
      * 判断字符串是否为空
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return result
      */
     public static boolean isEmpty(String str) {
         return str == null || str.equals("");
@@ -316,8 +327,8 @@ public abstract class StringUtils {
     /**
      * 判断多个字符串全部为空 isEmpty(s,s1,s2,...)
      *
-     * @param strs
-     * @return
+     * @param strs 多个字符串
+     * @return result
      */
     public static boolean isEmpty(String... strs) {
         if (strs == null || strs.length == 0) {
@@ -334,8 +345,8 @@ public abstract class StringUtils {
     /**
      * 判断是否为字母（包括大小字母）和数字
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return result
      */
     public static boolean isEntNum(String str) {
         String all = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -351,9 +362,9 @@ public abstract class StringUtils {
     /**
      * 比较两个字符串是否值相等
      *
-     * @param o1
-     * @param o2
-     * @return
+     * @param o1 字符串1
+     * @param o2 字符串2
+     * @return result
      */
     public static boolean isEqual(Object o1, Object o2) {
         if (o1 == null) {
@@ -366,8 +377,8 @@ public abstract class StringUtils {
     /**
      * 判断字符串可否转化成整数
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return result
      */
     public static boolean isInteger(String str) {
         if (str == null) {
@@ -379,8 +390,8 @@ public abstract class StringUtils {
     /**
      * 判断字符串可否转化成数字
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return result
      */
     public static boolean isNumber(String str) {
         if (str == null) {
@@ -407,9 +418,10 @@ public abstract class StringUtils {
 
     /**
      * 判断字符串是否相似
-     *
-     * @param s
-     * @return
+     * @param s 字符串
+     * @param d 字符串
+     * @param tolerance 标识
+     * @return result
      */
     public static boolean like(String s, String d, int tolerance) {
         if (notEmpty(s, d)) {
@@ -438,8 +450,8 @@ public abstract class StringUtils {
     /**
      * 判断字符串不为空
      *
-     * @param str
-     * @return
+     * @param str 字符串
+     * @return result
      */
     public static boolean notEmpty(String str) {
         return !isEmpty(str);
@@ -448,8 +460,8 @@ public abstract class StringUtils {
     /**
      * 判断多个字符串全部不为空 notEmpty(s,s1,s2,...)
      *
-     * @param strs
-     * @return
+     * @param strs 多个字符串
+     * @return result
      */
     public static boolean notEmpty(String... strs) {
         if (strs == null || strs.length == 0) {
@@ -469,6 +481,8 @@ public abstract class StringUtils {
 
     /**
      * 空转化为空字串
+     * @param sIn 字符串
+     * @return result
      */
     public static String nvl(String sIn) {
         return sIn == null ? "" : sIn;
@@ -489,10 +503,9 @@ public abstract class StringUtils {
 
     /**
      * remove char from the input string
-     *
-     * @param str
-     *            input string rc removed char
-     * @return
+     * @param str input string rc removed char
+     * @param rc rc removed char
+     * @return result
      */
     public static String removeChar(String str, String rc) {
         if (str == null) {
@@ -507,10 +520,11 @@ public abstract class StringUtils {
     }
 
     /**
-     *
-     * @param src
-     * @param sFnd
-     * @param sRep
+     * 替换字符
+     * @param src 源字符
+     * @param sFnd 字符结尾
+     * @param sRep 匹配
+     * @return result
      */
     public static String replaceStr(String src, String sFnd, String sRep) {
         String sTemp = "";
@@ -534,6 +548,8 @@ public abstract class StringUtils {
 
     /**
      * convert a string value to BigDecimal value
+     * @param src string
+     * @return BigDecimal
      */
     public static java.math.BigDecimal toBigDecimal(String src) {
         if (src == null) {
@@ -545,6 +561,8 @@ public abstract class StringUtils {
 
     /**
      * convert input value to html out string
+     * @param sIn value
+     * @return string
      */
     public static String toHTMLOutStr(String sIn) {
         if (sIn == null) {
@@ -558,6 +576,8 @@ public abstract class StringUtils {
 
     /**
      * convert input value to html return string
+     * @param sIn value
+     * @return string
      */
     public static String toHTMLRtnStr(String sIn) {
         if (sIn == null) {
@@ -611,9 +631,9 @@ public abstract class StringUtils {
     /**
      * 裁剪数据，超过长度便裁剪
      *
-     * @param o
-     * @param maxLength
-     * @return
+     * @param o 数据
+     * @param maxLength 超过长度
+     * @return 结果
      */
     public static  String cut(Object o, int maxLength) {
         if (o == null) {
