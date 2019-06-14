@@ -33,17 +33,17 @@ public abstract class CollectionUtils {
      *
      * @param source
      *            原数据
-     * @param mergetor
+     * @param merger
      *            合并器
      *
      */
-    public static <T> void merge(List<T> source, Mergetor<T> mergetor) {
-        if (source == null || mergetor == null) {
+    public static <T> void merge(List<T> source, Merger<T> merger) {
+        if (source == null || merger == null) {
             throw new IllegalArgumentException();
         }
         for (int i = 0; i < source.size(); i++) {
             for (int j = i + 1; j < source.size(); j++) {
-                if (mergetor.canMerge(source.get(i), source.get(j))) {
+                if (merger.canMerge(source.get(i), source.get(j))) {
                     source.remove(j);
                     source.remove(i);
                     i--;
