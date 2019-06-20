@@ -1,11 +1,20 @@
 package com.githup.liming495.utils;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +30,10 @@ public class HttpRequestUtil {
      * @param url   发送请求的URL
      * @param headerParam   发送请求的Header参数
      * @param param 请求参数，请求参数应该是的形式。
+     * @param ssl 支持ssl
      * @return URL 所代表远程资源的响应结果
      */
-    public static String sendGet(String url, Map<String, String> headerParam, String param) {
+    public static String sendGet(String url, Map<String, String> headerParam, String param, boolean ssl) {
         String result = "";
         BufferedReader in = null;
         try {
@@ -34,7 +44,7 @@ public class HttpRequestUtil {
                 urlNameString = url;
             }
             // 打开和URL之间的连接
-            URLConnection conn = getConn(urlNameString, headerParam);
+            URLConnection conn = getConn(urlNameString, headerParam, ssl);
 
             // 建立实际的连接
             conn.connect();
@@ -75,15 +85,16 @@ public class HttpRequestUtil {
      * @param url   发送请求的 URL
      * @param headerParam   发送请求的Header参数
      * @param param 请求参数，请求参数应该是的形式。
+     * @param ssl 支持ssl
      * @return 所代表远程资源的响应结果
      */
-    public static String sendPost(String url, Map<String, String> headerParam, String param) {
+    public static String sendPost(String url, Map<String, String> headerParam, String param, boolean ssl) {
         PrintWriter out = null;
         BufferedReader in = null;
         String result = "";
         try {
             // 打开和URL之间的连接
-            URLConnection conn = getConn(url, headerParam);
+            URLConnection conn = getConn(url, headerParam, ssl);
             // 发送POST请求必须设置如下两行
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -126,7 +137,11 @@ public class HttpRequestUtil {
         return result;
     }
 
-    private static URLConnection getConn(String url, Map<String, String> headerParam) throws IOException {
+    private static URLConnection getConn(String url, Map<String, String> headerParam, boolean ssl) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+        HttpsURLConnection.setDefaultHostnameVerifier(new HttpsIgnore().new NullHostNameVerifier());
+        SSLContext sc = SSLContext.getInstance("TLS");
+        sc.init(null, trustAllCerts, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         URL realUrl = new URL(url);
         // 打开和URL之间的连接
         URLConnection conn = realUrl.openConnection();
@@ -138,4 +153,22 @@ public class HttpRequestUtil {
         }
         return conn;
     }
+
+    static TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+    }};
 }

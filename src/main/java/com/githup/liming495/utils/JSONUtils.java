@@ -2,6 +2,7 @@ package com.githup.liming495.utils;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
@@ -49,7 +50,7 @@ public abstract class JSONUtils {
      * @return JAVA对象
      */
     public static Object Json2Object(String json, Class<?> c) {
-
+        MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         try {
             return MAPPER.readValue(json, c);
         } catch (JsonParseException e) {
