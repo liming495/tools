@@ -6,35 +6,25 @@
 
   <groupId>com.github.liming495</groupId>
   <artifactId>tools</artifactId>
-  <version>1.0.3</version>
+  <version>1.0.4</version>
+  <packaging>jar</packaging>
   <name>tools</name>
   <url>https://github.com/liming495/tools</url>
   <description>Tools</description>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
-
-  <packaging>jar</packaging>
-
-  <licenses>
-    <license>
-      <name>MIT License</name>
-      <url>https://opensource.org/licenses/MIT</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <email>liming_ly@126.com</email>
-      <name>guppy</name>
-      <url>https://github.com/liming495</url>
-      <id>liming495</id>
-    </developer>
-  </developers>
 
   <issueManagement>
     <url>https://github.com/liming495/tools/issues</url>
@@ -44,17 +34,6 @@
     <url>https://github.com/liming495/tools</url>
     <connection>scm:git:https://git@github.com/liming495/tools.git</connection>
   </scm>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-    </repository>
-  </distributionManagement>
 
   <dependencies>
     <dependency>

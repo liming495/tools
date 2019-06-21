@@ -138,10 +138,12 @@ public class HttpRequestUtil {
     }
 
     private static URLConnection getConn(String url, Map<String, String> headerParam, boolean ssl) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-        HttpsURLConnection.setDefaultHostnameVerifier(new HttpsIgnore().new NullHostNameVerifier());
-        SSLContext sc = SSLContext.getInstance("TLS");
-        sc.init(null, trustAllCerts, new SecureRandom());
-        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        if (ssl) {
+            HttpsURLConnection.setDefaultHostnameVerifier(new HttpsIgnore().new NullHostNameVerifier());
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        }
         URL realUrl = new URL(url);
         // 打开和URL之间的连接
         URLConnection conn = realUrl.openConnection();
@@ -154,7 +156,7 @@ public class HttpRequestUtil {
         return conn;
     }
 
-    static TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+    private static TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             // TODO Auto-generated method stub
