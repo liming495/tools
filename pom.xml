@@ -35,6 +35,17 @@
     <connection>scm:git:https://git@github.com/liming495/tools.git</connection>
   </scm>
 
+  <distributionManagement>
+    <snapshotRepository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>sonatype</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+  </distributionManagement>
+
   <dependencies>
     <dependency>
       <groupId>commons-logging</groupId>
