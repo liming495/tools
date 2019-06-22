@@ -20,6 +20,15 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <email>liming_ly@126.com</email>
+      <name>guppy</name>
+      <url>https://github.com/liming495</url>
+      <id>liming495</id>
+    </developer>
+  </developers>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
