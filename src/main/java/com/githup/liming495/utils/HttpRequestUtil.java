@@ -1,5 +1,22 @@
 package com.githup.liming495.utils;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.ssl.SSLContexts;
+import org.apache.http.util.EntityUtils;
+
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -10,7 +27,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
+import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -24,6 +43,8 @@ import java.util.Map;
  * @author Guppy
  */
 public class HttpRequestUtil {
+    private static String Encoding = StandardCharsets.UTF_8.name();
+
     /**
      * 向指定URL发送GET方法的请求
      *
@@ -173,4 +194,68 @@ public class HttpRequestUtil {
             return null;
         }
     }};
+
+    /**
+     * post请求 ，请求数据放到body里
+     *
+     * @author lifq
+     *
+     *         2017年3月15日 下午3:47:04
+     */
+    public static String doPostBodyData(String url, String bodyData) throws Exception {
+        String result = "";
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse response = null;
+        try {
+            HttpPost httpPost = getHttpPost(url, null); // 请求地址
+            httpPost.setEntity(new StringEntity(bodyData, Encoding));
+            httpClient = getHttpClient();
+            // 得到返回的response.
+            response = httpClient.execute(httpPost);
+            HttpEntity entity = response.getEntity();
+            result = getResult(entity, Encoding);
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            // 关闭httpClient
+            if (null != httpClient) {
+                httpClient.close();
+            }
+            // 关闭response
+            if (null != response) {
+                EntityUtils.consume(response.getEntity()); // 会自动释放连接
+                response.close();
+            }
+        }
+        return result;
+    }
+
+    private static HttpPost getHttpPost(String url, Object o) {
+        HttpPost post = new HttpPost(url);
+        post.setHeader("Content-type", "application/json; charset=utf-8");
+        return post;
+    }
+
+    private static CloseableHttpClient getHttpClient() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+        //需要通过以下代码声明对https连接支持
+        SSLContext sslcontext = SSLContexts.custom().loadTrustMaterial(null,
+                new TrustSelfSignedStrategy())
+                .build();
+        HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
+        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                sslcontext,hostnameVerifier);
+        Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
+                .register("http", PlainConnectionSocketFactory.getSocketFactory())
+                .register("https", sslsf)
+                .build();
+        PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
+        cm.setMaxTotal(200);
+        cm.setDefaultMaxPerRoute(20);
+        cm.setDefaultMaxPerRoute(50);
+        return HttpClients.custom().setConnectionManager(cm).build();
+    }
+
+    private static String getResult(HttpEntity entity, String encoding) throws IOException {
+        return EntityUtils.toString(entity, encoding);
+    }
 }
