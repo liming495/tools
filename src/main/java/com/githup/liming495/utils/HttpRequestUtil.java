@@ -197,10 +197,10 @@ public class HttpRequestUtil {
 
     /**
      * post请求 ，请求数据放到body里
-     *
-     * @author lifq
-     *
-     *         2017年3月15日 下午3:47:04
+     * @param url   统一资源定位符
+     * @param bodyData 请求数据
+     * @return  返回数据
+     * @throws Exception    异常
      */
     public static String doPostBodyData(String url, String bodyData) throws Exception {
         String result = "";
