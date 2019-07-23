@@ -2,6 +2,8 @@ package com.githup.liming495.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 字符串工具类
@@ -644,5 +646,21 @@ public abstract class StringUtils {
             return s.substring(0, maxLength);
         }
         return s;
+    }
+
+    /**
+     * unicode2中文
+     * @param unicode   统一码
+     * @return 中文
+     */
+    public static String unicodeToCn(String unicode) {
+        String unicodeCompile = "(?<=\\\\u).{4}?";
+        String a;
+        Matcher matcher = Pattern.compile(unicodeCompile).matcher(unicode);
+        for (; matcher.find(); ) {
+            a = matcher.group();
+            unicode = unicode.replace("\\u" + a, String.valueOf((char) Integer.valueOf(a, 16).intValue()));
+        }
+        return unicode;
     }
 }
