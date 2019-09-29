@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -44,6 +45,35 @@ import java.util.Map;
  */
 public class HttpRequestUtil {
     private static String Encoding = StandardCharsets.UTF_8.name();
+
+    /**
+     * 获取HeaderFields
+     * @param url   发送请求的URL
+     * @param param 请求参数，请求参数应该是的形式。
+     * @return HeaderFields
+     */
+    public static Map<String, List<String>> getHeaderFields(String url, String param){
+        PrintWriter out = null;
+        Map<String, List<String>> headerFields = null;
+        try {
+            URL realUrl = new URL(url);
+            URLConnection conn = realUrl.openConnection();
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            out = new PrintWriter(conn.getOutputStream());
+            out.print(param);
+            out.flush();
+            headerFields = conn.getHeaderFields();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally{
+            if(out != null){
+                out.close();
+            }
+        }
+        return headerFields;
+    }
 
     /**
      * 向指定URL发送GET方法的请求
