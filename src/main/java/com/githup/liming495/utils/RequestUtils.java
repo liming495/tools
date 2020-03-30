@@ -86,7 +86,7 @@ public abstract class RequestUtils {
     /**
      * 将url参数转换成map
      *
-     * @param param aa=11&bb=22&cc=33
+     * @param param URL请求参数
      * @return mpa
      */
     public static Map<String, Object> getUrlParams(String param) {
