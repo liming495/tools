@@ -1,7 +1,9 @@
 package com.githup.liming495.utils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * 请求对象工具类，用于在其它层获得一些请求对象中的属性
@@ -79,5 +81,47 @@ public abstract class RequestUtils {
         }
         return ip;
 
+    }
+
+    /**
+     * 将url参数转换成map
+     *
+     * @param param aa=11&bb=22&cc=33
+     * @return mpa
+     */
+    public static Map<String, Object> getUrlParams(String param) {
+        Map<String, Object> map = new HashMap<String, Object>(0);
+        if (ObjectUtils.isEmpty(param)) {
+            return map;
+        }
+        String[] params = param.split("&");
+        for (String para : params) {
+            String[] p = para.split("=");
+            if (p.length == 2) {
+                map.put(p[0], p[1]);
+            }
+        }
+        return map;
+    }
+
+    /**
+     * 将map转换成url
+     *
+     * @param map
+     * @return
+     */
+    public static String getUrlParamsByMap(Map<String, Object> map) {
+        if (map == null) {
+            return "";
+        }
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            sb.append(entry.getKey()).append("=").append(entry.getValue());
+            sb.append("&");
+        }
+        if (sb.length() > 1) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 }
