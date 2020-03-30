@@ -86,8 +86,8 @@ public abstract class RequestUtils {
     /**
      * 将url参数转换成map
      *
-     * @param param URL请求参数
-     * @return mpa
+     * @param param URL GET 请求字符串参数
+     * @return URL GET 请求Map参数
      */
     public static Map<String, Object> getUrlParams(String param) {
         Map<String, Object> map = new HashMap<String, Object>(0);
@@ -107,8 +107,8 @@ public abstract class RequestUtils {
     /**
      * 将map转换成url
      *
-     * @param map
-     * @return
+     * @param map URL GET 请求Map参数
+     * @return URL GET 请求字符串参数
      */
     public static String getUrlParamsByMap(Map<String, Object> map) {
         if (map == null) {
