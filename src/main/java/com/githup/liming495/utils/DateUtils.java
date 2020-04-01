@@ -215,6 +215,17 @@ public abstract class DateUtils {
     }
 
     /**
+     * 多少月以前
+     *
+     * @param manyMonths
+     *            多少月,传正数
+     * @return 多少月以前
+     */
+    public static Date beforeManyMonths(Integer manyMonths) {
+        return beforeManyMonths(null, manyMonths);
+    }
+
+    /**
      * 多少天以前
      *
      * @param manyDays
@@ -236,13 +247,34 @@ public abstract class DateUtils {
      */
     public static Date beforeManyYears(Date date, Integer manyYears) {
         if (manyYears > 0) {
-            manyYears = 0 - manyYears;
+            manyYears = -manyYears;
         }
         Calendar calendar = Calendar.getInstance();
         if (date != null) {
             calendar.setTime(date);
         }
         calendar.add(Calendar.YEAR, manyYears);
+        return calendar.getTime();
+    }
+
+    /**
+     * 多少年以前
+     *
+     * @param date
+     *            日期对象，不传默认是当前
+     * @param manyMonths
+     *            多少月,传正数
+     * @return 多少月以前
+     */
+    public static Date beforeManyMonths(Date date, Integer manyMonths) {
+        if (manyMonths > 0) {
+            manyMonths = -manyMonths;
+        }
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
+        }
+        calendar.add(Calendar.MONTH, manyMonths);
         return calendar.getTime();
     }
 
@@ -257,7 +289,7 @@ public abstract class DateUtils {
      */
     public static Date beforeManyDays(Date date, Integer manyDays) {
         if (manyDays > 0) {
-            manyDays = 0 - manyDays;
+            manyDays = -manyDays;
         }
         Calendar calendar = Calendar.getInstance();
         if (date != null) {
@@ -276,6 +308,17 @@ public abstract class DateUtils {
      */
     public static Date afterManyYears(Integer manyYears) {
         return afterManyYears(null, manyYears);
+    }
+
+    /**
+     * 多少月以后
+     *
+     * @param manyMonths
+     *            多少月,传正数
+     * @return 多少年以后
+     */
+    public static Date afterManyMonths(Integer manyMonths) {
+        return afterManyMonths(null, manyMonths);
     }
 
     /**
@@ -300,13 +343,34 @@ public abstract class DateUtils {
      */
     public static Date afterManyYears(Date date, Integer manyYears) {
         if (manyYears < 0) {
-            manyYears = 0 - manyYears;
+            manyYears = -manyYears;
         }
         Calendar calendar = Calendar.getInstance();
         if (date != null) {
             calendar.setTime(date);
         }
         calendar.add(Calendar.YEAR, manyYears);
+        return calendar.getTime();
+    }
+
+    /**
+     * 多少月以后
+     *
+     * @param date
+     *            日期对象，不传默认是当前
+     * @param manyMonths
+     *            多少月,传正数
+     * @return 多少年以后
+     */
+    public static Date afterManyMonths(Date date, Integer manyMonths) {
+        if (manyMonths < 0) {
+            manyMonths = -manyMonths;
+        }
+        Calendar calendar = Calendar.getInstance();
+        if (date != null) {
+            calendar.setTime(date);
+        }
+        calendar.add(Calendar.MONTH, manyMonths);
         return calendar.getTime();
     }
 
@@ -321,7 +385,7 @@ public abstract class DateUtils {
      */
     public static Date afterManyDays(Date date, Integer manyDays) {
         if (manyDays < 0) {
-            manyDays = 0 - manyDays;
+            manyDays = -manyDays;
         }
         Calendar calendar = Calendar.getInstance();
         if (date != null) {
@@ -393,7 +457,7 @@ public abstract class DateUtils {
         return calendar.getTime();
     }
 
-    private static final long base = 1388505600000l;// 1970-2014年的毫秒数，做为基数被减掉，以减少长度
+    private static final long base = 1388505600000L;// 1970-2014年的毫秒数，做为基数被减掉，以减少长度
 
     /**
      * 获取2014年1月1日到现在的秒数
@@ -432,7 +496,7 @@ public abstract class DateUtils {
     public static Date getBeforeTimeOfDay(Date now, int timing) {
         Calendar c = Calendar.getInstance();
         c.setTime(now);
-        c.add(Calendar.DAY_OF_YEAR, 0 - timing);
+        c.add(Calendar.DAY_OF_YEAR, -timing);
         return c.getTime();
     }
 
