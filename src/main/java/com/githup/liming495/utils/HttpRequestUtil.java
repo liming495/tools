@@ -1,8 +1,13 @@
 package com.githup.liming495.utils;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -15,6 +20,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -43,7 +50,192 @@ import java.util.Map;
  * @author Guppy
  */
 public class HttpRequestUtil {
+    private static final Logger logger = Logger.getLogger(HttpRequestUtil.class);
     private static String Encoding = StandardCharsets.UTF_8.name();
+
+    /**
+     * 原生字符串发送get请求
+     * @param url   发送请求的URL
+     * @param headerParam   发送请求的Header参数
+     * @param param 请求参数
+     * @return  响应报文
+     */
+    public static String doGet(String url, Map<String, String> headerParam, String param) {
+        BasicConfigurator.configure();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        String urlNameString;
+        if(!ObjectUtils.isEmpty(param)) {
+            urlNameString = url + "?" + param;
+        } else {
+            urlNameString = url;
+        }
+        HttpGet httpGet = new HttpGet(urlNameString);
+        RequestConfig requestConfig = RequestConfig
+                .custom()
+                .setConnectTimeout(35000)
+                .setConnectionRequestTimeout(35000)
+                .setSocketTimeout(60000).build();
+        httpGet.setHeader("Content-type", "application/json");
+        httpGet.setHeader("DataEncoding", "UTF-8");
+        // 设置通用的请求属性
+        if (!ObjectUtils.isEmpty(headerParam)) {
+            for (Map.Entry<String, String> entry : headerParam.entrySet()) {
+                httpGet.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+        httpGet.setConfig(requestConfig);
+
+        CloseableHttpResponse httpResponse = null;
+        try {
+            httpResponse = httpClient.execute(httpGet);
+            HttpEntity entity = httpResponse.getEntity();
+            String result = EntityUtils.toString(entity);
+            logger.info("请求成功");
+            return result;
+        } catch (ClientProtocolException e) {
+            logger.error("ClientProtocolException", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("IOException", e);
+            e.printStackTrace();
+        } finally {
+            closeObject(httpResponse);
+            closeObject(httpClient);
+        }
+        return null;
+    }
+
+    /**
+     * 原生字符串发送post请求
+     * @param url   发送请求的URL
+     * @param headerParam   发送请求的Header参数
+     * @param param 请求参数
+     * @return  响应报文
+     */
+    public static String doPost(String url, Map<String, String> headerParam, String param) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+        RequestConfig requestConfig = RequestConfig
+                .custom()
+                .setConnectTimeout(35000)
+                .setConnectionRequestTimeout(35000)
+                .setSocketTimeout(60000).build();
+        httpPost.setConfig(requestConfig);
+        httpPost.setHeader("Content-type", "application/json");
+        httpPost.setHeader("DataEncoding", "UTF-8");
+        // 设置通用的请求属性
+        if (!ObjectUtils.isEmpty(headerParam)) {
+            for (Map.Entry<String, String> entry : headerParam.entrySet()) {
+                httpPost.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
+        CloseableHttpResponse httpResponse = null;
+        try {
+            httpPost.setEntity(new StringEntity(param));
+            httpResponse = httpClient.execute(httpPost);
+            HttpEntity entity = httpResponse.getEntity();
+            return EntityUtils.toString(entity);
+        } catch (ClientProtocolException e) {
+            logger.error("ClientProtocolException", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("IOException", e);
+            e.printStackTrace();
+        } finally {
+            closeObject(httpResponse);
+            closeObject(httpClient);
+        }
+        return null;
+    }
+
+    /**
+     * 原生字符串发送put请求
+     *
+     * @param url   发送请求的URL
+     * @param headerParam   发送请求的Header参数
+     * @param param 请求参数
+     * @return  响应报文
+     */
+    public static String doPut(String url, Map<String, String> headerParam, String param) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPut httpPut = new HttpPut(url);
+        RequestConfig requestConfig = RequestConfig.custom().
+                setConnectTimeout(35000).
+                setConnectionRequestTimeout(35000).
+                setSocketTimeout(60000).build();
+        httpPut.setConfig(requestConfig);
+        httpPut.setHeader("Content-type", "application/json");
+        httpPut.setHeader("DataEncoding", "UTF-8");
+        // 设置通用的请求属性
+        if (!ObjectUtils.isEmpty(headerParam)) {
+            for (Map.Entry<String, String> entry : headerParam.entrySet()) {
+                httpPut.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
+        CloseableHttpResponse httpResponse = null;
+        try {
+            httpPut.setEntity(new StringEntity(param));
+            httpResponse = httpClient.execute(httpPut);
+            HttpEntity entity = httpResponse.getEntity();
+            return EntityUtils.toString(entity);
+        } catch (ClientProtocolException e) {
+            logger.error("ClientProtocolException", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("IOException", e);
+            e.printStackTrace();
+        } finally {
+            closeObject(httpResponse);
+            closeObject(httpClient);
+        }
+        return null;
+    }
+
+    /**
+     * 发送delete请求
+     *
+     * @param url   发送请求的URL
+     * @param headerParam   发送请求的Header参数
+     * @param param 请求参数
+     * @return  响应报文
+     */
+    public static String doDelete(String url, Map<String, String> headerParam, String param) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpDelete httpDelete = new HttpDelete(url);
+        RequestConfig requestConfig = RequestConfig
+                .custom()
+                .setConnectTimeout(35000)
+                .setConnectionRequestTimeout(35000)
+                .setSocketTimeout(60000).build();
+        httpDelete.setConfig(requestConfig);
+        httpDelete.setHeader("Content-type", "application/json");
+        httpDelete.setHeader("DataEncoding", "UTF-8");
+        // 设置通用的请求属性
+        if (!ObjectUtils.isEmpty(headerParam)) {
+            for (Map.Entry<String, String> entry : headerParam.entrySet()) {
+                httpDelete.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
+        CloseableHttpResponse httpResponse = null;
+        try {
+            httpResponse = httpClient.execute(httpDelete);
+            HttpEntity entity = httpResponse.getEntity();
+            return EntityUtils.toString(entity);
+        } catch (ClientProtocolException e) {
+            logger.error("ClientProtocolException", e);
+            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("IOException", e);
+            e.printStackTrace();
+        } finally {
+            closeObject(httpResponse);
+            closeObject(httpClient);
+        }
+        return null;
+    }
 
     /**
      * 获取HeaderFields
@@ -67,9 +259,7 @@ public class HttpRequestUtil {
         } catch (IOException e) {
             e.printStackTrace();
         } finally{
-            if(out != null){
-                out.close();
-            }
+            closeObject(out);
         }
         return headerFields;
     }
@@ -172,19 +362,49 @@ public class HttpRequestUtil {
         }
         //使用finally块来关闭输出流、输入流
         finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            closeObject(out);
+            closeObject(in);
         }
         System.out.println("post推送结果：" + result);
         return result;
+    }
+
+    /**
+     * 关闭对象 CloseableHttpResponse，CloseableHttpClient，PrintWriter，BufferedReader
+     * @param o 对象
+     */
+    private static void closeObject(Object o){
+        if (null != o) {
+            if (o instanceof CloseableHttpResponse) {
+                CloseableHttpResponse httpResponse = (CloseableHttpResponse) o;
+                try {
+                    httpResponse.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (o instanceof CloseableHttpClient) {
+                CloseableHttpClient httpClient = (CloseableHttpClient) o;
+                try {
+                    httpClient.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (o instanceof PrintWriter) {
+                PrintWriter out = (PrintWriter) o;
+                try {
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (o instanceof BufferedReader) {
+                BufferedReader in = (BufferedReader) o;
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private static URLConnection getConn(String url, Map<String, String> headerParam, boolean ssl) throws IOException, NoSuchAlgorithmException, KeyManagementException {

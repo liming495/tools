@@ -15,7 +15,7 @@ public class SecurityUtils {
      * 利用java原生的类实现SHA256加密
      *
      * @param str 加密后的报文
-     * @return
+     * @return  原文
      */
     public static String getSHA256(String str) {
         MessageDigest messageDigest;
@@ -33,8 +33,8 @@ public class SecurityUtils {
     /**
      * 将byte转为16进制
      *
-     * @param bytes
-     * @return
+     * @param bytes 字节
+     * @return  16进制样式
      */
     private static String byte2Hex(byte[] bytes) {
         StringBuffer stringBuffer = new StringBuffer();
