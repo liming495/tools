@@ -7,6 +7,7 @@ package com.githup.liming495.utils;
  */
 public abstract class DateStyle {
     public static final String CO_S = "yyyy-MM-dd'T'HH:mm:ss";
+    public static final String CO_SSS = "yyyy-MM-dd'T'HH:mm:ss.SSS Z";
 
     public static final String CT_M = "yyyy-MM";
     public static final String CT_D = "yyyy-MM-dd";
