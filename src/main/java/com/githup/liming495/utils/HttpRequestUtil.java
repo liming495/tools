@@ -491,11 +491,11 @@ public class HttpRequestUtil {
                 new TrustSelfSignedStrategy())
                 .build();
         HostnameVerifier hostnameVerifier = SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER;
-        SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+        SSLConnectionSocketFactory sslConnectionSocketFactory = new SSLConnectionSocketFactory(
                 sslcontext,hostnameVerifier);
         Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory>create()
                 .register("http", PlainConnectionSocketFactory.getSocketFactory())
-                .register("https", sslsf)
+                .register("https", sslConnectionSocketFactory)
                 .build();
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(socketFactoryRegistry);
         cm.setMaxTotal(200);
