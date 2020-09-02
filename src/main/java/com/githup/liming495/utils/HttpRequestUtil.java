@@ -331,7 +331,7 @@ public class HttpRequestUtil {
     public static String sendPost(String url, Map<String, String> headerParam, String param, boolean ssl) {
         PrintWriter out = null;
         BufferedReader in = null;
-        String result = "";
+        StringBuilder result = new StringBuilder();
         try {
             // 打开和URL之间的连接
             URLConnection conn = getConn(url, headerParam, ssl);
@@ -354,7 +354,7 @@ public class HttpRequestUtil {
             in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                result += line;
+                result.append(line);
             }
         } catch (Exception e) {
             System.out.println("发送 POST 请求出现异常！" + e);
@@ -366,7 +366,7 @@ public class HttpRequestUtil {
             closeObject(in);
         }
         System.out.println("post推送结果：" + result);
-        return result;
+        return result.toString();
     }
 
     /**
