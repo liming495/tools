@@ -663,4 +663,16 @@ public abstract class StringUtils {
         }
         return unicode;
     }
+
+    /**
+     * 检查字符是否为合法的url地址
+     *
+     * @param url 字符
+     * @return 是否为合法
+     */
+    public static boolean chkUrl(String url) {
+        String regex = "^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\/])+$";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(url).matches();
+    }
 }
