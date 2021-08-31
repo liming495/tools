@@ -249,6 +249,8 @@ public class HttpRequestUtil {
         try {
             URL realUrl = new URL(url);
             URLConnection conn = realUrl.openConnection();
+            conn.setConnectTimeout(20000);
+            conn.setReadTimeout(20000);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
             conn.setDoInput(true);
@@ -417,6 +419,8 @@ public class HttpRequestUtil {
         URL realUrl = new URL(url);
         // 打开和URL之间的连接
         URLConnection conn = realUrl.openConnection();
+        conn.setConnectTimeout(20000);
+        conn.setReadTimeout(20000);
         // 设置通用的请求属性
         if (!ObjectUtils.isEmpty(headerParam)) {
             for (Map.Entry<String, String> entry : headerParam.entrySet()) {
@@ -457,6 +461,11 @@ public class HttpRequestUtil {
         CloseableHttpResponse response = null;
         try {
             HttpPost httpPost = getHttpPost(url, null); // 请求地址
+            RequestConfig requestConfig = RequestConfig.custom().
+                    setConnectTimeout(35000).
+                    setConnectionRequestTimeout(35000).
+                    setSocketTimeout(60000).build();
+            httpPost.setConfig(requestConfig);
             httpPost.setEntity(new StringEntity(bodyData, Encoding));
             httpClient = getHttpClient();
             // 得到返回的response.
@@ -481,6 +490,11 @@ public class HttpRequestUtil {
 
     private static HttpPost getHttpPost(String url, Object o) {
         HttpPost post = new HttpPost(url);
+        RequestConfig requestConfig = RequestConfig.custom().
+                setConnectTimeout(35000).
+                setConnectionRequestTimeout(35000).
+                setSocketTimeout(60000).build();
+        post.setConfig(requestConfig);
         post.setHeader("Content-type", "application/json; charset=utf-8");
         return post;
     }
