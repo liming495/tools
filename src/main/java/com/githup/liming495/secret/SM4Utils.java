@@ -1,9 +1,7 @@
 package com.githup.liming495.secret;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import java.io.IOException;
+import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +36,7 @@ public class SM4Utils {
             SM4 sm4 = new SM4();
             sm4.sm4SetKeyEnc(ctx, keyBytes);
             byte[] encrypted = sm4.sm4CryptEcb(ctx, plainText.getBytes("GBK"));
-            String cipherText = new BASE64Encoder().encode(encrypted);
+            String cipherText = Base64.getEncoder().encodeToString(encrypted);
             if (cipherText != null && cipherText.trim().length() > 0) {
                 Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                 Matcher m = p.matcher(cipherText);
@@ -66,7 +64,7 @@ public class SM4Utils {
 
             SM4 sm4 = new SM4();
             sm4.sm4SetKeyDec(ctx, keyBytes);
-            byte[] decrypted = sm4.sm4CryptEcb(ctx, new BASE64Decoder().decodeBuffer(cipherText));
+            byte[] decrypted = sm4.sm4CryptEcb(ctx, Base64.getDecoder().decode(cipherText));
             return new String(decrypted, "GBK");
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +91,7 @@ public class SM4Utils {
             SM4 sm4 = new SM4();
             sm4.sm4SetKeyEnc(ctx, keyBytes);
             byte[] encrypted = sm4.sm4CryptCbc(ctx, ivBytes, plainText.getBytes("GBK"));
-            String cipherText = new BASE64Encoder().encode(encrypted);
+            String cipherText = Base64.getEncoder().encodeToString(encrypted);
             if (cipherText != null && cipherText.trim().length() > 0) {
                 Pattern p = Pattern.compile("\\s*|\t|\r|\n");
                 Matcher m = p.matcher(cipherText);
@@ -124,7 +122,7 @@ public class SM4Utils {
 
             SM4 sm4 = new SM4();
             sm4.sm4SetKeyDec(ctx, keyBytes);
-            byte[] decrypted = sm4.sm4CryptCbc(ctx, ivBytes, new BASE64Decoder().decodeBuffer(cipherText));
+            byte[] decrypted = sm4.sm4CryptCbc(ctx, ivBytes, Base64.getDecoder().decode(cipherText));
             return new String(decrypted, "GBK");
         } catch (Exception e) {
             e.printStackTrace();
