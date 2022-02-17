@@ -28,7 +28,7 @@ public class SM3Digest {
     /**
      * 缓冲区
      */
-    private byte[] xBuf = new byte[BUFFER_LENGTH];
+    private final byte[] xBuf = new byte[BUFFER_LENGTH];
 
     /**
      * 缓冲区偏移量
@@ -56,7 +56,7 @@ public class SM3Digest {
      *
      * @param out    保存SM3结构的缓冲区
      * @param outOff 缓冲区偏移量
-     * @return
+     * @return 输出
      */
     public int doFinal(byte[] out, int outOff) {
         byte[] tmp = doFinal();

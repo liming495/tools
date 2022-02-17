@@ -184,9 +184,9 @@ public class SM3 {
     /**
      * 对最后一个分组字节数据padding
      *
-     * @param in
+     * @param in 分组字节数据
      * @param bLen 分组个数
-     * @return
+     * @return 处理结果
      */
     public static byte[] padding(byte[] in, int bLen) {
         int k = 448 - (8 * in.length + 1) % 512;
