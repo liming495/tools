@@ -2,6 +2,10 @@ package com.githup.liming495.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,11 +21,11 @@ public abstract class DateUtils {
     private static final String PATTERN_ONLY_DATE = "yyyy-MM-dd";
     private static final String PATTERN_ONLY_TIME = "HH:mm:ss";
     private static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
-    private static final HashMap<String, SimpleDateFormat> FORMATS = new HashMap<String, SimpleDateFormat>();
+    private static final HashMap<String, DateTimeFormatter> FORMATS = new HashMap<>();
     static {
-        FORMATS.put(PATTERN_ONLY_DATE, new SimpleDateFormat(PATTERN_ONLY_DATE));
-        FORMATS.put(PATTERN_ONLY_TIME, new SimpleDateFormat(PATTERN_ONLY_TIME));
-        FORMATS.put(PATTERN_DATETIME, new SimpleDateFormat(PATTERN_DATETIME));
+        FORMATS.put(PATTERN_ONLY_DATE, DateTimeFormatter.ofPattern(PATTERN_ONLY_DATE));
+        FORMATS.put(PATTERN_ONLY_TIME, DateTimeFormatter.ofPattern(PATTERN_ONLY_TIME));
+        FORMATS.put(PATTERN_DATETIME, DateTimeFormatter.ofPattern(PATTERN_DATETIME));
     }
 
     /**
@@ -33,11 +37,11 @@ public abstract class DateUtils {
      *            格式化对象
      * @return 日期对象转字符串
      */
-    public static String dateToString(Date date, SimpleDateFormat dateFormat) {
+    public static String dateToString(Date date, DateTimeFormatter dateFormat) {
         if (date == null) {
             throw new IllegalArgumentException("date can't be null");
         }
-        return dateFormat.format(date);
+        return dateFormat.format(LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()));
     }
 
     /**
@@ -50,31 +54,29 @@ public abstract class DateUtils {
      * @return 日期对象转字符串
      */
     public static String dateToString(Date date, String pattern) {
-        return dateToString(date, getSimpleDateFormat(pattern));
+        return dateToString(date, getDateTimeFormatter(pattern));
     }
 
     /**
      * 字符串转日期对象，用户指定格式化对象
      *
-     * @param datestr
+     * @param dateStr
      *            日期字符串
      * @param dateFormat
      *            格式化对象
      * @return Date
-     * @throws ParseException
-     *             解析异常
      */
-    public static Date parse(String datestr, SimpleDateFormat dateFormat) throws ParseException {
-        if (datestr == null) {
-            throw new IllegalArgumentException("datestr can't be null");
+    public static Date parse(String dateStr, DateTimeFormatter dateFormat) {
+        if (dateStr == null) {
+            throw new IllegalArgumentException("dateStr can't be null");
         }
-        return dateFormat.parse(datestr);
+        return localDateTimeToDate(LocalDateTime.parse(dateStr, dateFormat));
     }
 
     /**
      * 字符串转日期对象，用户指定格式
      *
-     * @param datestr
+     * @param dateStr
      *            日期字符串
      * @param pattern
      *            格式化
@@ -82,8 +84,8 @@ public abstract class DateUtils {
      * @throws ParseException
      *             解析异常
      */
-    public static Date parse(String datestr, String pattern) throws ParseException {
-        return parse(datestr, getSimpleDateFormat(pattern));
+    public static Date parse(String dateStr, String pattern) throws ParseException {
+        return parse(dateStr, getDateTimeFormatter(pattern));
     }
 
     /**
@@ -92,13 +94,13 @@ public abstract class DateUtils {
      * @param pattern 格式
      * @return 格式化对象
      */
-    private static SimpleDateFormat getSimpleDateFormat(String pattern) {
+    private static DateTimeFormatter getDateTimeFormatter(String pattern) {
         if (pattern == null) {
             throw new IllegalArgumentException("pattern can't be null");
         }
-        SimpleDateFormat dateFormat = FORMATS.get(pattern);
+        DateTimeFormatter dateFormat = FORMATS.get(pattern);
         if (dateFormat == null) {
-            dateFormat = new SimpleDateFormat(pattern);
+            dateFormat = DateTimeFormatter.ofPattern(pattern);
             FORMATS.put(pattern, dateFormat);
         }
         return dateFormat;
@@ -985,5 +987,19 @@ public abstract class DateUtils {
             }
         }
         return age;
+    }
+
+
+
+
+    /**
+     * 将LocalDateTime 转换成 Date
+     * @param localDateTime localDateTime
+     * @return  Date
+     */
+    public static Date localDateTimeToDate(LocalDateTime localDateTime){
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = localDateTime.atZone(zoneId);
+        return Date.from(zdt.toInstant());
     }
 }

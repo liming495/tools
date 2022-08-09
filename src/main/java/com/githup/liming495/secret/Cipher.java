@@ -32,7 +32,7 @@ public class Cipher {
         this.sm3Digest = new SM3Digest();
         this.sm3c3 = new SM3Digest();
 
-        byte p[] = Util.byteConvert32Bytes(p2.getX().toBigInteger());
+        byte[] p = Util.byteConvert32Bytes(p2.getX().toBigInteger());
         this.sm3Digest.update(p, 0, p.length);
         this.sm3c3.update(p, 0, p.length);
 

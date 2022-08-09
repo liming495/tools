@@ -1,5 +1,6 @@
 package com.githup.liming495.secret;
 
+import com.githup.liming495.utils.SecurityUtils;
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair;
 import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ECPublicKeyParameters;
@@ -112,5 +113,6 @@ public class SM2Utils {
         System.out.println("解密: ");
         plainText = new String(SM2Utils.decrypt(Util.hexToByte(prik), Util.hexToByte(cipherText)));
         System.out.println(plainText);
+
     }
 }

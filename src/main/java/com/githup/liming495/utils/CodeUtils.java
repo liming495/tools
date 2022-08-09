@@ -18,15 +18,15 @@ public abstract class CodeUtils {
     /**
      * 根据属性文件生成调用代码
      *
-     * @param pfile
+     * @param pFile
      *            属性文件，需放在类路径下
      * @param classname 要生成的类名
      * @param annotation 生成后的类注解
      */
-    public static void generatPropertiesClass(String pfile, String classname, String annotation) {
+    public static void generatePropertiesClass(String pFile, String classname, String annotation) {
         Properties properties = new Properties();
         try {
-            properties.load(CodeUtils.class.getClassLoader().getResourceAsStream(pfile));
+            properties.load(CodeUtils.class.getClassLoader().getResourceAsStream(pFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,7 +51,7 @@ public abstract class CodeUtils {
         System.out.println("public static void init() {");
         System.out.println("Properties p = new Properties();");
         System.out.println("try {");
-        System.out.println("p.load(" + classname + ".class.getClassLoader().getResourceAsStream(\"" + pfile + "\"));");
+        System.out.println("p.load(" + classname + ".class.getClassLoader().getResourceAsStream(\"" + pFile + "\"));");
         for (Map.Entry<Object, Object> e : properties.entrySet()) {
             System.out.println(e.getKey().toString().replaceAll("\\.", "_") + "=p.getProperty(\"" + e.getKey() + "\");");
         }
@@ -73,10 +73,10 @@ public abstract class CodeUtils {
      * @return .append("[fieldName-").append(getFieldName()||fieldName)
      */
     @SuppressWarnings("rawtypes")
-    public static String generatToString(Class sc, boolean recursion, String[] ignores) {
+    public static String generateToString(Class sc, boolean recursion, String[] ignores) {
         StringBuilder builder = new StringBuilder();
         while (sc != null) {
-            builder.append(generatToString(sc, ignores));
+            builder.append(generateToString(sc, ignores));
             if (!recursion) {
                 break;
             }
@@ -88,7 +88,7 @@ public abstract class CodeUtils {
     }
 
     @SuppressWarnings("rawtypes")
-    private static String generatToString(Class sc, String[] ignores) {
+    private static String generateToString(Class sc, String[] ignores) {
         Field[] fs_s = sc.getDeclaredFields();
         StringBuilder builder = new StringBuilder();
         if (fs_s.length < 1) {
@@ -147,7 +147,7 @@ public abstract class CodeUtils {
      * @param nullable 标识
      */
     @SuppressWarnings("rawtypes")
-    public static void generatGetPut(Class sc, Class dc, String s, String map, int tolerance, boolean nullable) {
+    public static void generateGetPut(Class sc, Class dc, String s, String map, int tolerance, boolean nullable) {
         List<String> fails = new ArrayList<String>();
         List<String> noset = new ArrayList<String>();
         List<String> noget = new ArrayList<String>();
@@ -270,7 +270,7 @@ public abstract class CodeUtils {
      *            如果不允许为空，那就会生成判断语句 if(o!=null)
      */
     @SuppressWarnings("rawtypes")
-    public static void generatGetSet(Class sc, Class dc, String s, String d, int tolerance, boolean nullable) {
+    public static void generateGetSet(Class sc, Class dc, String s, String d, int tolerance, boolean nullable) {
         List<String> fails = new ArrayList<String>();
         List<String> noset = new ArrayList<String>();
         List<String> noget = new ArrayList<String>();
