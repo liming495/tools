@@ -1,8 +1,5 @@
 package com.githup.liming495.utils;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.util.Collection;
 
 /**
@@ -11,7 +8,6 @@ import java.util.Collection;
  * @author by guppy
  */
 public abstract class ObjectUtils {
-    public static Log log = LogFactory.getLog(ObjectUtils.class);
 
     /**
      * 检查一个集合是否为空

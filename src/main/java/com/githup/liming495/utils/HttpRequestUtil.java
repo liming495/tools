@@ -20,8 +20,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -50,7 +50,7 @@ import java.util.Map;
  * @author Guppy
  */
 public class HttpRequestUtil {
-    private static final Logger logger = Logger.getLogger(HttpRequestUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpRequestUtil.class);
     private static String Encoding = StandardCharsets.UTF_8.name();
 
     /**
@@ -61,7 +61,6 @@ public class HttpRequestUtil {
      * @return  响应报文
      */
     public static String doGet(String url, Map<String, String> headerParam, String param) {
-        BasicConfigurator.configure();
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String urlNameString;
         if(!ObjectUtils.isEmpty(param)) {
