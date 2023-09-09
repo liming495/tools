@@ -80,9 +80,8 @@ public abstract class DateUtils {
      * @param dateStr 日期字符串
      * @param pattern 格式化
      * @return Date
-     * @throws ParseException 解析异常
      */
-    public static Date parse(String dateStr, String pattern) throws ParseException {
+    public static Date parse(String dateStr, String pattern) {
         return parse(dateStr, getDateTimeFormatter(pattern));
     }
 
@@ -110,7 +109,7 @@ public abstract class DateUtils {
      * @param date 时间值
      * @return 日期转字符串
      */
-    public static String dateToString_only_date(Date date) {
+    public static String dateToStringOnlyDate(Date date) {
         return dateToString(date, PATTERN_ONLY_DATE);
     }
 
@@ -119,8 +118,8 @@ public abstract class DateUtils {
      *
      * @return 当前日期转字符串
      */
-    public static String nowToString_only_date() {
-        return dateToString_only_date(new Date());
+    public static String nowToStringOnlyDate() {
+        return dateToStringOnlyDate(new Date());
     }
 
     /**
@@ -130,7 +129,7 @@ public abstract class DateUtils {
      * @return Date
      * @throws ParseException 解析异常
      */
-    public static Date parse_only_date(String strDate) throws ParseException {
+    public static Date parseOnlyDate(String strDate) throws ParseException {
         return parse(strDate, PATTERN_ONLY_DATE);
     }
 
@@ -140,7 +139,7 @@ public abstract class DateUtils {
      * @param date 时间值
      * @return 日期转字符串
      */
-    public static String dateToString_only_time(Date date) {
+    public static String dateToStringOnlyTime(Date date) {
         return dateToString(date, PATTERN_ONLY_TIME);
     }
 
@@ -149,8 +148,8 @@ public abstract class DateUtils {
      *
      * @return 当前日期转字符串
      */
-    public static String nowToString_only_time() {
-        return dateToString_only_time(new Date());
+    public static String nowToStringOnlyTime() {
+        return dateToStringOnlyTime(new Date());
     }
 
     /**
@@ -160,7 +159,7 @@ public abstract class DateUtils {
      * @return Date
      * @throws ParseException 解析异常
      */
-    public static Date parse_only_time(String strDate) throws ParseException {
+    public static Date parseOnlyTime(String strDate) throws ParseException {
         return parse(strDate, PATTERN_ONLY_TIME);
     }
 
@@ -464,37 +463,6 @@ public abstract class DateUtils {
         return date.getTime() - base;
     }
 
-    /**
-     * 获取当前时间前几天的时间
-     *
-     * @param now    当前时间
-     * @param timing 前几天的时间
-     * @return 当前时间前几天的时间
-     */
-    public static Date getBeforeTimeOfDay(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.clear();
-        c.setTime(now);
-        c.add(Calendar.DAY_OF_YEAR, -timing);
-        return c.getTime();
-    }
-
-    /**
-     * 获取当前时间前几天的时间-具体到秒
-     *
-     * @param now    当前时间
-     * @param timing 前几天的时间
-     * @return 当前时间前几天的时间
-     */
-    public static Date getBeforeDateOfTime(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.clear();
-        c.setTime(now);
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE) - timing, c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
-        return c.getTime();
-    }
-
     private static long ns = 1000; // 一秒钟的毫秒数
 
     /**
@@ -556,22 +524,6 @@ public abstract class DateUtils {
             e.printStackTrace();
         }
         return r;
-    }
-
-    /**
-     * 获取当前时间后几小时的时间
-     *
-     * @param now    前时间
-     * @param timing 后几小时的时间
-     * @return 前时间后几小时的时间
-     */
-    public static Date getAfterTimeOfHours(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.clear();
-        c.setTime(now);
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR_OF_DAY) + timing,
-                c.get(Calendar.MINUTE), c.get(Calendar.SECOND));
-        return c.getTime();
     }
 
     /**
@@ -804,21 +756,6 @@ public abstract class DateUtils {
     }
 
     /**
-     * 获取当前时间后几分钟的时间
-     *
-     * @param now    当前时间
-     * @param timing 后几分钟的时间
-     * @return 当前时间后几分钟的时间
-     */
-    public static Date getAfterTimeOfMinutes(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(now);
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE) + timing, 0);
-        return c.getTime();
-    }
-
-    /**
      * 将当前时间转换成标准时间格式
      *
      * @param date yyyy-MM-dd HH:mm
@@ -829,36 +766,6 @@ public abstract class DateUtils {
         calendar.setTime(date);
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTime();
-    }
-
-    /**
-     * 获取当前时间前几小时的时间
-     *
-     * @param now    当前时间
-     * @param timing 前几小时
-     * @return 当前时间前几小时的时间
-     */
-    public static Date getBeforeTimeOfHours(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(now);
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR_OF_DAY) - timing,
-                c.get(Calendar.MINUTE), 0);
-        return c.getTime();
-    }
-
-    /**
-     * 获取当前时间前几天的时间-具体到分钟
-     *
-     * @param now    当前时间
-     * @param timing 前几天
-     * @return 当前时间前几天的时间
-     */
-    public static Date getBeforeTimeOfDate(Date now, int timing) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(now);
-        c.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE) - timing, c.get(Calendar.HOUR_OF_DAY),
-                c.get(Calendar.MINUTE), 0);
-        return c.getTime();
     }
 
     /**
@@ -1321,5 +1228,133 @@ public abstract class DateUtils {
     public static String dayOfEnd() {
         LocalDateTime localDateTime = LocalDateTime.of(LocalDate.now(), LocalTime.MAX);
         return localDateTime.format(DATE_TIME_FORMATTER_SEC);
+    }
+
+    // 重构分割线 //
+
+    /**
+     * 根据时间类型获取当前时间前时间
+     *
+     * @param now      当前时间
+     * @param dateType 时间类型
+     * @param timing   时长
+     * @return 时间
+     */
+    public static Date getBeforeTime(Date now, int dateType, int timing) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        if (dateType == Calendar.YEAR) {
+            int year = c.get(Calendar.YEAR) - timing;
+            c.set(year,
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.MONTH) {
+            int month = c.get(Calendar.MONTH) - timing;
+            c.set(c.get(Calendar.YEAR),
+                    month,
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.DATE) {
+            int date = c.get(Calendar.DATE) - timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    date,
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.HOUR_OF_DAY) {
+            int hourOfDay = c.get(Calendar.HOUR_OF_DAY) - timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    hourOfDay,
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == c.get(Calendar.MINUTE)) {
+            int minute = c.get(Calendar.MINUTE) - timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    minute,
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.SECOND) {
+            int second = c.get(Calendar.SECOND) - timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    second);
+        }
+        return c.getTime();
+    }
+
+    /**
+     * 根据时间类型获取当前时间后时间
+     *
+     * @param now      当前时间
+     * @param dateType 时间类型
+     * @param timing   时长
+     * @return 时间
+     */
+    public static Date getAfterTime(Date now, int dateType, int timing) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        if (dateType == Calendar.YEAR) {
+            int year = c.get(Calendar.YEAR) + timing;
+            c.set(year,
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.MONTH) {
+            int month = c.get(Calendar.MONTH) + timing;
+            c.set(c.get(Calendar.YEAR),
+                    month,
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.DATE) {
+            int date = c.get(Calendar.DATE) + timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    date,
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.HOUR_OF_DAY) {
+            int hourOfDay = c.get(Calendar.HOUR_OF_DAY) + timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    hourOfDay,
+                    c.get(Calendar.MINUTE),
+                    c.get(Calendar.SECOND));
+        } else if (dateType == c.get(Calendar.MINUTE)) {
+            int minute = c.get(Calendar.MINUTE) + timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    minute,
+                    c.get(Calendar.SECOND));
+        } else if (dateType == Calendar.SECOND) {
+            int second = c.get(Calendar.SECOND) + timing;
+            c.set(c.get(Calendar.YEAR),
+                    c.get(Calendar.MONTH),
+                    c.get(Calendar.DATE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(Calendar.MINUTE),
+                    second);
+        }
+        return c.getTime();
     }
 }

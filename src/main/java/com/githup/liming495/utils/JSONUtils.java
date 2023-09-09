@@ -1,9 +1,6 @@
 package com.githup.liming495.utils;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.JavaType;
 
@@ -23,17 +20,12 @@ public abstract class JSONUtils {
     /**
      * Java对象转JSON
      *
-     * @param o
-     *            Java对象
+     * @param o Java对象
      * @return String JSON
      */
     public static String Object2Json(Object o) {
         try {
             return MAPPER.writeValueAsString(o);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,48 +35,36 @@ public abstract class JSONUtils {
     /**
      * JSON字符串转Java对象
      *
-     * @param json
-     *            源字符串
-     * @param c
-     *            类
+     * @param json 源字符串
+     * @param c    类
      * @return JAVA对象
      */
-    public static Object Json2Object(String json, Class<?> c) {
+    public static <T> T Json2Object(String json, Class<T> c) throws IOException {
         MAPPER.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         try {
             return MAPPER.readValue(json, c);
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
-        return JSON_EMPTY;
     }
 
     /**
      * JSON字符串转Java LIST对象
      *
-     * @param json 字符串
-     * @param listClass
-     *            List类
-     * @param elementClass
-     *            泛型的类
+     * @param json         字符串
+     * @param listClass    List类
+     * @param elementClass 泛型的类
      * @return 对象
      */
-    public static Object Json2List(String json, Class<?> listClass, Class<?> elementClass) {
+    public static <T> T Json2List(String json, Class<T> listClass, Class<T> elementClass) throws IOException {
 
         try {
             return MAPPER.readValue(json, getCollectionType(listClass, elementClass));
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            throw e;
         }
-        return JSON_EMPTY;
     }
 
     /**
