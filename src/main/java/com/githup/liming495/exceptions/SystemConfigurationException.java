@@ -1,4 +1,4 @@
-package com.githup.liming495.exception;
+package com.githup.liming495.exceptions;
 
 /**
  * 系统配置异常

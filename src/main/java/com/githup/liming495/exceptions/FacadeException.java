@@ -1,4 +1,4 @@
-package com.githup.liming495.exception;
+package com.githup.liming495.exceptions;
 
 /**
  * 表层异常
